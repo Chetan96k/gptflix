@@ -99,10 +99,10 @@ const Signin = () => {
       <div className="absolute top-0 left-0 w-full h-full -z-10">
         <img
           className="w-full h-full object-cover brightness-50"
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/258d0f77-2241-4282-b613-8354a7675d1a/web/IN-en-20250721-TRIFECTA-perspective_cadc8408-df6e-4313-a05d-daa9dcac139f_large.jpg"
+          src="https://w.wallhaven.cc/full/0w/wallhaven-0w2de6.jpg"
           alt="Background"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black opacity-60" />
+        {/* <div className="absolute inset-0 bg-gradient-to-t from-black opacity-60" /> */}
       </div>
 
       <Header />
@@ -117,7 +117,7 @@ const Signin = () => {
             {isSignInForm ? "Sign In" : "Sign Up"}
           </h2>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-6">
             {!isSignInForm && (
               <input
                 ref={name}
@@ -146,7 +146,7 @@ const Signin = () => {
           <button
             onClick={handleButtonClick}
             type="submit"
-            className="w-full bg-red-600 hover:bg-red-700 transition duration-300 text-white font-bold py-2 rounded"
+            className="w-full bg-white hover:bg-gray-200 transition duration-300 text-black font-bold py-2 rounded cursor-pointer"
           >
             {isSignInForm ? "Sign In" : "Sign Up"}
           </button>
@@ -164,7 +164,7 @@ const Signin = () => {
           )}
 
           <div className="text-sm text-gray-300">
-            {isSignInForm ? "New to Netflix?" : "Already have an account?"}{" "}
+            {isSignInForm ? "New to gptflix?" : "Already have an account?"}{" "}
             <a
               onClick={toggleForm}
               href="#"

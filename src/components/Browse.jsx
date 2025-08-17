@@ -28,7 +28,7 @@ const Browse = () => {
         {/* Sign Out Button */}
         <button
           onClick={handleSignOut}
-          className="absolute text-sm font-semibold top-6 right-8 bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 md:right-26 transition duration-1200"
+          className="absolute text-sm font-semibold top-6 right-8 bg-white text-black px-2 py-1 rounded hover:bg-gray-200 md:right-26 transition duration-300 cursor-pointer"
         >
           Sign Out
         </button>
