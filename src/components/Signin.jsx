@@ -11,6 +11,7 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import signInBg from "../../public/signin_bg.jpg"
 
 const Signin = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -99,7 +100,7 @@ const Signin = () => {
       <div className="absolute top-0 left-0 w-full h-full -z-10">
         <img
           className="w-full h-full object-cover brightness-50"
-          src="https://w.wallhaven.cc/full/0w/wallhaven-0w2de6.jpg"
+          src={signInBg}
           alt="Background"
         />
         {/* <div className="absolute inset-0 bg-gradient-to-t from-black opacity-60" /> */}
