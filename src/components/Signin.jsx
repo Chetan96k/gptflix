@@ -1,99 +1,18 @@
-import React from "react";
-import { useState, useRef } from "react";
 import Header from "./Header";
-import { checkValidData } from "../utils/validate";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
-import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
-import signInBg from "../../public/signin_bg.jpg"
+import { useAuth } from "../hooks/useAuth";
+import signInBg from "/signin_bg.jpg";
 
 const Signin = () => {
-  const [isSignInForm, setIsSignInForm] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const name = useRef(null);
-  const email = useRef(null);
-  const password = useRef(null);
-
-  const handleButtonClick = () => {
-    const nameValue = name.current?.value || "";
-    const emailValue = email.current.value;
-    const passwordValue = password.current.value;
-
-    const message = checkValidData(
-      emailValue,
-      passwordValue,
-      isSignInForm ? null : nameValue
-    );
-
-    if (message) {
-      setErrorMessage(message);
-      return;
-    }
-
-    setErrorMessage(null);
-
-    // Proceed with Sign In or Sign Up logic here
-    if (!isSignInForm) {
-      createUserWithEmailAndPassword(auth, emailValue, passwordValue)
-        .then((userCredential) => {
-          // Signed up
-          const user = userCredential.user;
-          // ...
-          // Set display name separately
-          updateProfile(auth.currentUser, {
-            displayName: nameValue,
-          })
-            .then(() => {
-              // Profile updated!
-              // ...
-              const { uid, email, displayName } = auth.currentUser;
-              // ...updating the store
-              dispatch(
-                addUser({ uid: uid, email: email, displayName: displayName })
-              );
-              navigate("/browse");
-            })
-            .catch((error) => {
-              // An error occurred
-              // ...
-              setErrorMessage(error.message);
-            });
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // ..
-          setErrorMessage(errorCode);
-        });
-    } else {
-      signInWithEmailAndPassword(auth, emailValue, passwordValue)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          navigate("/browse");
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-
-          setErrorMessage(errorCode);
-        });
-    }
-  };
-
-  const toggleForm = () => {
-    setIsSignInForm(!isSignInForm);
-  };
+  const {
+    isSignInForm,
+    errorMessage,
+    loading,
+    name,
+    email,
+    password,
+    toggleForm,
+    handleAuth,
+  } = useAuth();
 
   return (
     <div>
@@ -118,7 +37,7 @@ const Signin = () => {
             {isSignInForm ? "Sign In" : "Sign Up"}
           </h2>
 
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-8 py-4">
             {!isSignInForm && (
               <input
                 ref={name}
@@ -140,40 +59,70 @@ const Signin = () => {
               className="w-full px-4 py-2 rounded bg-white/6 text-white placeholder-white/50 border border-gray-500 focus:border-2 focus:border-white focus:outline-none"
             />
           </div>
+          
           {errorMessage && (
             <p className="text-red-500 text-sm -mt-2">{errorMessage}</p>
           )}
 
+          {/* 🔹 Button with loader */}
           <button
-            onClick={handleButtonClick}
+            onClick={handleAuth}
             type="submit"
-            className="w-full bg-white hover:bg-gray-200 transition duration-300 text-black font-bold py-2 rounded cursor-pointer"
+            disabled={loading}
+            className="w-full h-10 flex justify-center items-center gap-2 bg-white hover:bg-gray-200 transition duration-300 text-black font-bold rounded cursor-pointer"
+
           >
-            {isSignInForm ? "Sign In" : "Sign Up"}
+            {loading ? (
+              <>
+                <svg
+                  className="animate-spin h-5 w-5 text-black"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className=""
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className=""
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  ></path>
+                </svg>
+                
+              </>
+            ) : (
+              isSignInForm ? "Sign In" : "Sign Up"
+            )}
           </button>
 
-          {isSignInForm && (
-            <div className="flex items-center justify-between text-sm text-gray-300">
-              <label className="flex items-center space-x-2">
-                <input type="checkbox" className="accent-red-600" />
-                <span>Remember me</span>
-              </label>
+          {isSignInForm ? (
+            <div className="flex items-center justify-center text-sm text-white font-semibold gap-2">
               <a href="#" className="hover:underline">
-                Forgot Password?
+                FORGOT PASSWORD?
+              </a>
+              <span>|</span>
+              <a onClick={toggleForm} href="#" className="hover:underline">
+                CREATE ACCOUNT
+              </a>
+            </div>
+          ) : (
+            <div className="text-center text-sm text-gray-300">
+              Already have an account?{" "}
+              <a
+                onClick={toggleForm}
+                href="#"
+                className="font-semibold text-white hover:underline"
+              >
+                LOG IN
               </a>
             </div>
           )}
-
-          <div className="text-sm text-gray-300">
-            {isSignInForm ? "New to gptflix?" : "Already have an account?"}{" "}
-            <a
-              onClick={toggleForm}
-              href="#"
-              className="font-semibold text-white hover:underline"
-            >
-              {isSignInForm ? "Sign up now." : "Sign in now."}
-            </a>
-          </div>
         </form>
       </div>
     </div>

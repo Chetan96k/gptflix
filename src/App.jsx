@@ -1,5 +1,5 @@
 // App.jsx
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import { Provider } from "react-redux";
 import Signin from "./components/Signin";
 import Browse from "./components/Browse";
@@ -9,24 +9,22 @@ import Body from "./components/Body";
 function App() {
   const appRouter = createBrowserRouter([
     {
-      path: "/",
-      element: (
-        <>
-          <Body /> {/* logic wrapper always runs */}
-          <Signin /> {/* actual UI */}
-        </>
-      ),
-    },
-    {
-      path: "/browse",
-      element: (
-        <>
-          <Body />
-          <Browse />
-        </>
-      ),
+      element: <RootLayout />, // common wrapper
+      children: [
+        { path: "/", element: <Signin /> },
+        { path: "/browse", element: <Browse /> },
+      ],
     },
   ]);
+
+  function RootLayout() {
+    return (
+      <>
+        <Body /> {/* Mounted once, inside router context */}
+        <Outlet /> {/* renders Signin or Browse */}
+      </>
+    );
+  }
 
   return (
     <Provider store={appStore}>

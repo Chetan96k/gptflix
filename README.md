@@ -13,6 +13,10 @@
 - created redux store to store user details fetched from firebase after signin
 - Implemented signout
 - update profile api call
+- use tmdb API (Now playing)
+- create movie slice and add the nowPlayingmovies and movieTrailer to it
+- make the main container
+
 
 
 
