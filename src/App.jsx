@@ -5,6 +5,7 @@ import Signin from "./components/Signin";
 import Browse from "./components/Browse";
 import appStore from "./utils/appStore";
 import Body from "./components/Body";
+import GptSearch from "./components/GptSearch";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -13,6 +14,7 @@ function App() {
       children: [
         { path: "/", element: <Signin /> },
         { path: "/browse", element: <Browse /> },
+        { path: "/gptsearch", element: <GptSearch /> },
       ],
     },
   ]);

@@ -16,7 +16,12 @@
 - use tmdb API (Now playing)
 - create movie slice and add the nowPlayingmovies and movieTrailer to it
 - make the main container
-
+- make the secondary container
+- build movie list
+- build movie card
+- make AI search feature
+- gpt search page
+- gpt search bar and movie cards
 
 
 
