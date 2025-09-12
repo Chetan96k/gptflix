@@ -22,6 +22,8 @@
 - make AI search feature
 - gpt search page
 - gpt search bar and movie cards
+- make the api call to gemini
+- fetch the response
 
 
 

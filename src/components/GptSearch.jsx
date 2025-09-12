@@ -1,12 +1,27 @@
 import React, { useState } from "react";
 import Header from "./Header";
+import ai from "../utils/geminiapi";
 
 const GptSearch = () => {
   const [query, setQuery] = useState("");
 
-  const handleSearch = () => {
-    console.log("Searching for:", query);
+  const handleSearch = async () => {
     // Here you can call API or show recommendations
+    const gptQuery =
+      "Act as a movie recommendation engine. Suggest some movies based on the following input: " +
+      query +
+      ". Only give me the comma separated movie list as shown ahead in the example result. Example Result : movie1, movie2, movie3, movie4, movie5.";
+      
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: gptQuery,
+      config: {
+        thinkingConfig: {
+          thinkingBudget: 0, // Disables thinking
+        },
+      },
+    });
+    const movieList = response.text.split(",").map((movie) => movie.trim());
   };
 
   return (
