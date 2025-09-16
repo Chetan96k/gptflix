@@ -14,10 +14,14 @@ const MainContainer = () => {
   const { id, original_title, overview } = mainMovie;
 
   return (
-    <div className="bg-black relative w-full h-[100vh] overflow-hidden z-0">
-      <VideoBackground id={id} />
-      <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent opacity-70 z-10" />
+    <div className="bg-black relative w-full overflow-hidden z-0">
+      {/* Video Background */}
+      <div className="w-full h-[45vh] md:h-[100vh]">
+        <VideoBackground id={id} />
+        <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent opacity-70 z-10" />
+      </div>
 
+      {/* Video Title */}
       <VideoTitle title={original_title} overview={overview} />
     </div>
   );

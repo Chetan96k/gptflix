@@ -20,16 +20,16 @@ export default function MovieList({ title, movies }) {
   return (
     <div className="pb-10 px-4 relative">
       {/* Title */}
-      <h2 className="px-6 pb-2 text-white text-2xl">{title}</h2>
+      <h2 className="pb-2 text-white text-xl md:text-2xl px-2 md:px-6">{title}</h2>
 
       {/* Left Button */}
       <button
         onClick={scrollLeft}
         className="absolute top-1/2 left-0 -translate-y-1/2 z-10 
-                   h-80 w-14 rounded-r-2xl flex items-center justify-center
+                   h-60 sm:h-80 w-10 sm:w-14 rounded-r-2xl flex items-center justify-center
                    bg-gradient-to-r from-black to-transparent hover:opacity-80"
       >
-        <ChevronLeft className="text-white w-8 h-8" />
+        <ChevronLeft className="text-white w-6 sm:w-8 h-6 sm:h-8" />
       </button>
 
       {/* Movie Cards Row */}
@@ -50,12 +50,11 @@ export default function MovieList({ title, movies }) {
       <button
         onClick={scrollRight}
         className="absolute top-1/2 right-0 -translate-y-1/2 z-10
-                   h-80 w-14 rounded-l-2xl flex items-center justify-center
+                   h-60 sm:h-80 w-10 sm:w-14 rounded-l-2xl flex items-center justify-center
                    bg-gradient-to-l from-black to-transparent hover:opacity-80"
       >
-        <ChevronRight className="text-white w-8 h-8" />
+        <ChevronRight className="text-white w-6 sm:w-8 h-6 sm:h-8" />
       </button>
     </div>
   );
 }
-

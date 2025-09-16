@@ -6,6 +6,8 @@ import { API_OPTIONS } from "../utils/constants";
 export const useMovieTrailer = (id) => {
   const dispatch = useDispatch();
 
+  const trailerVideo = useSelector(store => store.movies.trailerVideo);
+
   const getMovieVideo = async () => {
     const data = await fetch(
       `https://api.themoviedb.org/3/movie/${id}/videos?`,
@@ -21,6 +23,6 @@ export const useMovieTrailer = (id) => {
   };
 
   useEffect(() => {
-    getMovieVideo();
+    if (!trailerVideo) getMovieVideo();
   }, []);
 };

@@ -24,7 +24,10 @@
 - gpt search bar and movie cards
 - make the api call to gemini
 - fetch the response
-
+- clean the response
+- display the info in the movie cards
+- memoization (preventing unnessory api calls by using stored data in the redux store)
+- make responsive
 
 
 # Features
