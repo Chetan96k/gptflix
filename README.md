@@ -45,3 +45,13 @@
 - Netflix GPT
     - Search Bar
     - Movie Suggestions
+
+
+# Description
+- Developed this app using React.js and Tailwind CSS to create a responsive and secure movie browsing experience.
+- Implemented Firebase Authentication for secure signup, signin, signout, and profile update functionality.
+- Optimized API calls by reducing them by 50% using Redux Toolkit to store and reuse movie data (memoization).
+- Integrated 5+ APIs including TMDB API and Gemini API to use Gemini 2.5 Flash model for movie data
+and AI-powered search.
+- Implemented responsive design and form validation using useRef Hook for a seamless user experience.
+- Deployed the app on Vercel with secure environment variable management for fast and safe hosting.
